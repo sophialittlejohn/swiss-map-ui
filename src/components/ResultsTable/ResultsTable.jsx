@@ -1,9 +1,9 @@
 import React from "react";
 
-export const ResultsTable = ({ results }) => {
+export const ResultsTable = ({ results, description }) => {
   return (
     <table className="result-table">
-      <caption></caption>
+      <caption>{description.en}</caption>
       <thead>
         <tr>
           <th>Canton</th>

@@ -2,22 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { CantonMap } from "../CantonMap/CantonMap";
 import { Select } from "../Select/Select";
-
-const sampleDataUrl =
-  "https://gist.githubusercontent.com/epfl-exts-react/63181e2beb4f813d9988734e93026b0c/raw/e9c7ef1cea83434f867b69fe8cc73ccdc02ff667/swiss-vote-results-sample.json";
+import { ResultsTable } from "../ResultsTable/ResultsTable";
 
 function App() {
   const [data, setData] = useState(null);
-  const [tableData, setTableData] = useState(null);
-  const [selected, setSelected] = useState("");
+  const [selectedData, setSelectedData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(sampleDataUrl);
+        const response = await fetch("./swiss-vote-results-sample.json");
         const apiData = await response.json();
         setData(apiData);
-        setTableData(apiData[0]);
+        setSelectedData(apiData[0]);
       } catch (error) {
         console.error("Caught an error:", error);
       }
@@ -25,24 +22,35 @@ function App() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const newTableData =
-      data && data.find((el) => el.description.en === selected);
-    newTableData && setTableData(newTableData);
-  }, [selected, data]);
+  const handleSelect = (selecion) => {
+    const newData =
+      data && data.find((option) => option.description.en === selecion);
+    setSelectedData(newData);
+  };
 
-  if (data && tableData) {
+  useEffect(() => {
+    if (data && selectedData) {
+      const newTableData = data.find(
+        ({ description: { en } }) => en === selectedData.description.en
+      );
+      newTableData && setSelectedData(newTableData);
+    }
+  }, [selectedData, data]);
+
+  if (data && selectedData) {
     return (
       <main>
         <h2>SWISS VOTE</h2>
         <Select
           options={data && data.map((option) => option.description.en)}
-          selected={selected}
-          setSelected={setSelected}
+          selected={selectedData.description.en}
+          setSelected={handleSelect}
         />
-        {tableData && (
+        {selectedData && (
           <figure>
-            <CantonMap data={tableData} />
+            <CantonMap {...selectedData}>
+              <ResultsTable />
+            </CantonMap>
           </figure>
         )}
       </main>

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { drawCanvas } from "../../helpers";
-import { ResultsTable } from "../ResultsTable/ResultsTable";
 
-export const CantonMap = ({ data }) => {
+export const CantonMap = ({ results, description, children }) => {
   const mapRef = useRef(null);
   const context = useRef(null);
 
@@ -14,14 +13,17 @@ export const CantonMap = ({ data }) => {
 
   useEffect(() => {
     if (context.current) {
-      drawCanvas(context.current, data.results);
+      drawCanvas(context.current, results);
     }
-  }, [data]);
+  }, [results]);
 
   return (
     <div>
       <canvas height={538} width={840} className="canvas" ref={mapRef}>
-        <ResultsTable results={data.results} />
+        {React.cloneElement(children, {
+          description,
+          results,
+        })}
       </canvas>
     </div>
   );
