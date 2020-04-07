@@ -31,8 +31,8 @@ body {
 h1,
 h2,
 h3 {
-  color: #f1f2f0;
-  text-shadow: var(--shadow);
+  color: black;
+  /* text-shadow: var(--shadow); */
 }
 
 h1 {

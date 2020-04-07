@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { ResultsTable } from "../ResultsTable/ResultsTable";
+import { CantonMap } from "../CantonMap/CantonMap";
 
 const sampleDataUrl =
   "https://gist.githubusercontent.com/epfl-exts-react/63181e2beb4f813d9988734e93026b0c/raw/e9c7ef1cea83434f867b69fe8cc73ccdc02ff667/swiss-vote-results-sample.json";
@@ -12,10 +13,14 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(sampleDataUrl);
-      const apiData = await response.json();
-      setData(apiData);
-      setTableData(apiData[0]);
+      try {
+        const response = await fetch(sampleDataUrl);
+        const apiData = await response.json();
+        setData(apiData);
+        setTableData(apiData[0]);
+      } catch (error) {
+        console.error("Caught an error:", error);
+      }
     };
     fetchData();
   }, []);
@@ -28,13 +33,19 @@ function App() {
 
   return (
     <main>
+      <h2>SWISS VOTE</h2>
       {data && tableData && (
-        <ResultsTable
-          options={data.length > 0 && data.map(option => option.description.en)}
-          selected={selected}
-          setSelected={setSelected}
-          results={tableData.results}
-        />
+        <figure>
+          <CantonMap results={tableData.results} />
+          <ResultsTable
+            options={
+              data.length > 0 && data.map(option => option.description.en)
+            }
+            selected={selected}
+            setSelected={setSelected}
+            results={tableData.results}
+          />
+        </figure>
       )}
     </main>
   );

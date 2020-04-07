@@ -4,7 +4,13 @@ import { Select } from "../Select/Select";
 export const ResultsTable = ({ results, selected, setSelected, options }) => {
   return (
     <table className="result-table">
-      <Select options={options} selected={selected} setSelected={setSelected} />
+      <caption>
+        <Select
+          options={options}
+          selected={selected}
+          setSelected={setSelected}
+        />
+      </caption>
       <thead>
         <tr>
           <th>Canton</th>
