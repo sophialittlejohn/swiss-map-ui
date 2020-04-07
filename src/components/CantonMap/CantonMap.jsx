@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { drawCanvas } from "../../helpers";
+import { ResultsTable } from "../ResultsTable/ResultsTable";
 
-export const CantonMap = ({ results }) => {
+export const CantonMap = ({ data }) => {
   const mapRef = useRef(null);
   const context = useRef(null);
 
@@ -13,13 +14,15 @@ export const CantonMap = ({ results }) => {
 
   useEffect(() => {
     if (context.current) {
-      drawCanvas(context.current, results);
+      drawCanvas(context.current, data.results);
     }
-  }, [results]);
+  }, [data]);
 
   return (
     <div>
-      <canvas height={538} width={840} className="canvas" ref={mapRef} />
+      <canvas height={538} width={840} className="canvas" ref={mapRef}>
+        <ResultsTable results={data.results} />
+      </canvas>
     </div>
   );
 };

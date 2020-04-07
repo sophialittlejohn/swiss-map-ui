@@ -1,16 +1,9 @@
 import React from "react";
-import { Select } from "../Select/Select";
 
-export const ResultsTable = ({ results, selected, setSelected, options }) => {
+export const ResultsTable = ({ results }) => {
   return (
     <table className="result-table">
-      <caption>
-        <Select
-          options={options}
-          selected={selected}
-          setSelected={setSelected}
-        />
-      </caption>
+      <caption></caption>
       <thead>
         <tr>
           <th>Canton</th>

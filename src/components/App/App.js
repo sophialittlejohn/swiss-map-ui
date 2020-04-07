@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { ResultsTable } from "../ResultsTable/ResultsTable";
 import { CantonMap } from "../CantonMap/CantonMap";
+import { Select } from "../Select/Select";
 
 const sampleDataUrl =
   "https://gist.githubusercontent.com/epfl-exts-react/63181e2beb4f813d9988734e93026b0c/raw/e9c7ef1cea83434f867b69fe8cc73ccdc02ff667/swiss-vote-results-sample.json";
@@ -27,28 +27,29 @@ function App() {
 
   useEffect(() => {
     const newTableData =
-      data && data.find(el => el.description.en === selected);
+      data && data.find((el) => el.description.en === selected);
     newTableData && setTableData(newTableData);
   }, [selected, data]);
 
-  return (
-    <main>
-      <h2>SWISS VOTE</h2>
-      {data && tableData && (
-        <figure>
-          <CantonMap results={tableData.results} />
-          <ResultsTable
-            options={
-              data.length > 0 && data.map(option => option.description.en)
-            }
-            selected={selected}
-            setSelected={setSelected}
-            results={tableData.results}
-          />
-        </figure>
-      )}
-    </main>
-  );
+  if (data && tableData) {
+    return (
+      <main>
+        <h2>SWISS VOTE</h2>
+        <Select
+          options={data && data.map((option) => option.description.en)}
+          selected={selected}
+          setSelected={setSelected}
+        />
+        {tableData && (
+          <figure>
+            <CantonMap data={tableData} />
+          </figure>
+        )}
+      </main>
+    );
+  } else {
+    return <h1>Loading...</h1>;
+  }
 }
 
 export default App;
