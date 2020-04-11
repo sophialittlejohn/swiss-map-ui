@@ -1,0 +1,53 @@
+input,
+select {
+  font-size: 1em;
+  font-weight: 300;
+  box-sizing: border-box;
+  box-shadow: var(--light-shadow);
+  padding: calc(var(--content-padding) / 2);
+  width: 100%;
+  text-overflow: ellipsis;
+}
+
+label {
+  display: block;
+  margin: 18px 0 8px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown--open {
+  position: absolute;
+  width: 100%;
+}
+
+.dropdown-input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.9);
+  padding-left: 0;
+  font-size: 24px;
+}
+
+.icon {
+  display: flex;
+}
+
+.icon::after {
+  background-image: url(../../assets/chevron-down.svg);
+  content: "";
+  display: inline-block;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+}
+
+input::placeholder {
+  font-size: 24px;
+  font-family: "Montserrat", sans-serif;
+}

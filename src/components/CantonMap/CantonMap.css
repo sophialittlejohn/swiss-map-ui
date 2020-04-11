@@ -1,0 +1,20 @@
+canvas {
+  width: fit-content;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+fieldset ul {
+  list-style: none;
+  padding: 0;
+}
+
+.map-title {
+  font-family: "Roboto Slab", serif;
+  font-size: 32px;
+  margin-bottom: 40px;
+}

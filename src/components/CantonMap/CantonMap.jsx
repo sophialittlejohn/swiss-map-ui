@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import "./CantonMap.css";
 import { drawCanvas } from "../../helpers";
 
 export const CantonMap = ({ results, description, children }) => {
@@ -18,7 +19,8 @@ export const CantonMap = ({ results, description, children }) => {
   }, [results]);
 
   return (
-    <div>
+    <div className="map">
+      {/* <h2 className="map-title">{description.en}</h2> */}
       <canvas height={538} width={840} className="canvas" ref={mapRef}>
         {React.cloneElement(children, {
           description,

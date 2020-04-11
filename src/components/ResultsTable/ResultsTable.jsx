@@ -1,4 +1,5 @@
 import React from "react";
+import "./ResultsTable.css";
 
 export const ResultsTable = ({ results, description }) => {
   return (

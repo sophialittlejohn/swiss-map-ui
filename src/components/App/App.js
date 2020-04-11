@@ -14,7 +14,7 @@ function App() {
         const response = await fetch("./swiss-vote-results-sample.json");
         const apiData = await response.json();
         setData(apiData);
-        setSelectedData(apiData[0]);
+        setSelectedData(apiData[7]);
       } catch (error) {
         console.error("Caught an error:", error);
       }
@@ -22,9 +22,9 @@ function App() {
     fetchData();
   }, []);
 
-  const handleSelect = (selecion) => {
+  const handleSearch = (value) => {
     const newData =
-      data && data.find((option) => option.description.en === selecion);
+      data && data.find((option) => option.description.en === value);
     setSelectedData(newData);
   };
 
@@ -39,21 +39,22 @@ function App() {
 
   if (data && selectedData) {
     return (
-      <main>
-        <h2>SWISS VOTE</h2>
-        <Select
-          options={data && data.map((option) => option.description.en)}
-          selected={selectedData.description.en}
-          setSelected={handleSelect}
-        />
-        {selectedData && (
+      <div>
+        <style>
+          @import
+          url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Roboto+Slab:wght@400;600&display=swap');
+        </style>
+        <main className="main">
+          <h1 className="title">Swiss Vote</h1>
+          <Select handleSearch={handleSearch} data={data} />
+
           <figure>
             <CantonMap {...selectedData}>
               <ResultsTable />
             </CantonMap>
           </figure>
-        )}
-      </main>
+        </main>
+      </div>
     );
   } else {
     return <h1>Loading...</h1>;
